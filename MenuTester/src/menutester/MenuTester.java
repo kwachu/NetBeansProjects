@@ -4,7 +4,6 @@
 package menutester;
 
 import java.util.Scanner;
-import java.io.IOException;
 /**
  *
  * @author kwachu
@@ -14,43 +13,24 @@ public class MenuTester {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
         // TODO code application logic here
-        int choice =1;
-        Scanner reader = new Scanner(System.in);
-        //IOException ioe;
+        int choice=1;
+        Scanner reader = new Scan
         
-        while(choice != 0)  {
-            try { 
-                Runtime.getRuntime().exec("clear");
-            } 
-            catch (IOException ioe) {
-                System.err.print(ioe);
-            }
-                
-            System.out.print("***********MENU*************\n"
-                    + "Wybierz opcje:\n"
-                    + "1. Pokaz baze\n"
-                    + "2. Dodaj wpis do bazy\n"
-                    + "3. unter Konstrukzionierung\n");
-            choice = Integer.parseInt(reader.next());
+        while (true) {
+            System.out.print("***********MENU*************"
+                    + "Wybierz opcje:"
+                    + "1. Pokaz baze"
+                    + "2. Dodaj wpis do bazy"
+                    + "3. unter Konstrukzionierung");
+            
             
             switch(choice) {
-                case 1: {
-                    System.out.println("Wybrano 1");
-                    break;
-                }
-                case 2: {
-                    System.out.println("Wybrano 2");
-                    break;
-                }
-                default: {
-                    System.out.println("Wybrano nieobslugiwana opcje");
-                }    
-
+                
+            }
+             
         
         }
-    }
-
     }
 }
