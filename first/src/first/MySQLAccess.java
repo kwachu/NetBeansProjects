@@ -27,7 +27,55 @@ public class MySQLAccess {
       // Statements allow to issue SQL queries to the database
       statement = connect.createStatement();
       
-      resultSet = statement.executeQuery("select * from test_tab");
+      resultSet = statement.executeQuery("select * from czlowiek");
+      writeResultSet(resultSet);
+      //writeMetaData(resultSet);
+      
+    } catch (Exception e) {
+      throw e;
+    } finally {
+      close();
+    }
+
+  }
+  
+    public void readDBuser() throws Exception {
+    try {
+      // This will load the MySQL driver, each DB has its own driver
+      Class.forName("com.mysql.jdbc.Driver");
+      // Setup the connection with the DB
+      connect = DriverManager
+          .getConnection("jdbc:mysql://localhost/javaDB?"
+              + "user=javaDB&password=javapass");
+
+      // Statements allow to issue SQL queries to the database
+      statement = connect.createStatement();
+      
+      resultSet = statement.executeQuery("select * from czlowiek");
+      writeResultSet(resultSet);
+      //writeMetaData(resultSet);
+      
+    } catch (Exception e) {
+      throw e;
+    } finally {
+      close();
+    }
+
+  }
+  
+  public void readDBzaloga(int nr) throws Exception {
+    try {
+      // This will load the MySQL driver, each DB has its own driver
+      Class.forName("com.mysql.jdbc.Driver");
+      // Setup the connection with the DB
+      connect = DriverManager
+          .getConnection("jdbc:mysql://localhost/javaDB?"
+              + "user=javaDB&password=javapass");
+
+      // Statements allow to issue SQL queries to the database
+      statement = connect.createStatement();
+      
+      resultSet = statement.executeQuery("select * from czlowiek");
       writeResultSet(resultSet);
       //writeMetaData(resultSet);
       
@@ -66,6 +114,34 @@ public class MySQLAccess {
 
   }
   
+  public void addDBuser(String[] tab) throws Exception {
+    try {
+      // This will load the MySQL driver, each DB has its own driver
+      Class.forName("com.mysql.jdbc.Driver");
+      // Setup the connection with the DB
+      connect = DriverManager
+          .getConnection("jdbc:mysql://localhost/javaDB?"
+              + "user=javaDB&password=javapass");
+      
+      
+      preparedStatement = connect.prepareStatement("INSERT INTO javaDB.czlowiek (nazwisko, imie, urodziny, numer_legitymacji) VALUES (?, ?, ?, ?)");
+
+      preparedStatement.setString(1, tab[0]);
+      preparedStatement.setString(2, tab[1]);
+      preparedStatement.setString(3, tab[2]);
+      preparedStatement.setString(4, tab[3]);
+
+      preparedStatement.executeUpdate();
+      
+      
+    } catch (Exception e) {
+      throw e;
+    } finally {
+      close();
+    }
+
+  }
+  
   private void writeMetaData(ResultSet resultSet) throws SQLException {
     //   Now get some metadata from the database
     // Result set get the result of the SQL query
@@ -79,26 +155,24 @@ public class MySQLAccess {
   }
 
   private void writeResultSet(ResultSet resultSet) throws SQLException {
-    // ResultSet is initially before the first data set
+
     while (resultSet.next()) {
-      // It is possible to get the columns via name
-      // also possible to get the columns via the column number
-      // which starts at 1
-      // e.g. resultSet.getSTring(2);
-      String user = resultSet.getString("name");
-      String surname = resultSet.getString("surname");
-      String age = resultSet.getString("age");
-      //String website = resultSet.getString'("webpage");
-      //String summery = resultSet.getString("summery");
-      //int date = resultSet.getString("age").toString();
-      //String comment = resultSet.getString("comments");
-      System.out.println("User: " + user);
-      System.out.println("Surname: " + surname);
-      System.out.println("Age: " + age);
-      //System.out.println("Website: " + website);
-      //System.out.println("Summery: " + summery);
-      //System.out.println("Date: " + date);
-      //System.out.println("Comment: " + comment);
+
+      String user = resultSet.getString("imie");
+      String surname = resultSet.getString("nazwisko");
+      String age = resultSet.getString("urodziny");
+      String nr_leg = resultSet.getString("numer_legitymacji");
+
+      if (user != ""){ 
+          System.out.print("Imie: " + user + "   "); 
+      }
+      if ( surname != "") 
+          System.out.println("Nazwisko: " + surname);
+      if ( age != "")
+          System.out.println("Data ur.: " + age);
+      if (nr_leg != "")
+          System.out.println("Legitymacja: " + nr_leg);
+
     }
   }
 
